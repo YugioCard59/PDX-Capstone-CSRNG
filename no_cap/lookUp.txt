@@ -1,0 +1,30 @@
+Dynamic PEM fuel cell modelling
+
+https://www.ibm.com/docs/en/i/7.4?topic=ssw_ibm_i_74/apis/qc3addprngseed.html
+
+https://www.cryptopp.com/wiki/RandomNumberGenerator
+
+https://calomel.org/entropy_random_number_generators.html
+
+https://www.random.org/bytes/
+
+https://cryptobook.nakov.com/secure-random-generators
+
+https://www.energy.gov/eere/fuelcells/hydrogen-shot
+
+https://www.kaggle.com/datasets/sepandhaghighi/proton-exchange-membrane-pem-fuel-cell-dataset
+
+how to:  api calls from kaggle, jupyter notebook, creating pyton based graph using csv from kaggle/notebook
+
+https://www.sciencedirect.com/science/article/pii/S2666546822000325
+
+https://chemrxiv.org/engage/chemrxiv/article-details/60c748624c8919b500ad2ef3
+
+https://github.com/ECSIM/pem-dataset1/blob/master/Notebooks/Activation%20Test%20MEA%20Cycling%20Potential.ipynb
+
+https://hub-binder.mybinder.ovh/user/ecsim-pem-dataset1-0tpu13ou/lab/tree/Activation%20Test%20MEA%20Constant%20Current%200.25A/1.csv
+
+
+
+
+ 
