@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 # from .forms import UploadFileForm
-# from .forms import ModelFormWithFileField
+from .forms import ModelFormWithFileField
 # from .models import ModelWithFileField
 # from django.views.generic.edit import FormView
 # from .forms import FileFieldForm
 # import pandas as pd
-from .forms import CsvForm, UploadFileForm, FileFieldForm
+from .forms import CsvForm
 
 from .models import Csv_data
 import csv
@@ -55,26 +55,31 @@ import csv
 #         for chunk in file_to_open.chuncks():
 #             destination.write(chunk)
 
-def upload_file(request):
-    if request.method == 'POST':
-        form =  CsvForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            obj = Csv_data.objects.get(activated=False)
-#     with open(obj.file_name.path, 'r') as f:
-#         reader = csv.reader(f)
-#         for i, row in enumerate(reader):
-#             if i==0:
-#                 pass
-#             else:
-#                 print(row)
-#             print(row)
-#     obj.activated = True
-#     obj.save()
-            return HttpResponseRedirect('/success/url/')
-        else:
-            form = CsvForm()
-        return render(request, 'welcome.html', {'form': form})
+def handle_uploaded_file(obj):
+    obj = Csv_data.objects.get(activated=False)
+    with open(obj.file_name.path, 'wb+') as f:
+        for chunk in obj.file_name.path.chunks():
+                f.write(chunk)
+    obj.activated = True
+    obj.save()
+
+
+# def upload_file(request):
+#     if request.method == 'POST':
+#         form = CsvForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+
+#             # obj = Csv_data.objects.get(activated=False)
+#             # with open(obj.file_name.path, 'wb+') as f:
+#             #     for chunk in obj.file_name.path.chunks():
+#             #         f.write(chunk)
+#             # obj.activated = True
+#             # obj.save()
+#         # return render(request, 'welcome.html', {'form': form})
+#         else:
+#             form = CsvForm()
+#         return render(request, 'welcome.html', {'form': form})
 
 # def upload_file(request):
 #     if request.method == 'POST':
@@ -97,7 +102,20 @@ def upload_file(request):
 #         files = request.FILES.getlist('file_field')
 #         if form.is_valid():
 #             for file in files:
-#                 # TODO: what file is to todo
+#                 # todo: what file is to todo
 #             return self.form_valid(form)
 #         else:
 #             return self.form_invalid(form)
+
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = ModelFormWithFileField(request.POST, request.FILES)
+        if form.is_valid():
+            # file is saved
+            form.save()
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = ModelFormWithFileField()
+    return render(request, 'upload.html', {'form': form})
