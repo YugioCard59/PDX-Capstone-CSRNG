@@ -11,6 +11,10 @@ Welcome & Data Upload/Retrieval Page
 {% csrf_token %}
 <!-- note {{form}} form defined in views.py as dict key -->
 {{form}}
+<div>
+    <label for="formFileLg" class="form-label">Large file input example</label>
+    <input class="form-control form-control-lg" name="csv_file" id="formFileLg" type="file">
+  </div>
 <button type="submit" class="btn btn-success">Submit</button>
 </div>
 </form>

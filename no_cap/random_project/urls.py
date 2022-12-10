@@ -23,4 +23,7 @@ urlpatterns = [
     path('', include('random_app.urls')),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Note: below is a work around since django will not serve uploaded files
+# in production use something like nginx + django storages to store files external
+if settings.DEBUG:  
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

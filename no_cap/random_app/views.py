@@ -1,15 +1,16 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 # from .forms import UploadFileForm
-from .forms import ModelFormWithFileField
+# from .forms import ModelFormWithFileField
 # from .models import ModelWithFileField
 # from django.views.generic.edit import FormView
 # from .forms import FileFieldForm
 # import pandas as pd
+# from django.http import HttpResponseRedirect
 from .forms import CsvForm
 
 from .models import Csv_data
-import csv
+# import csv
 
 # def welcome(request):
 #     df = pd.read_csv('/temp_csv/*')
@@ -55,6 +56,8 @@ import csv
 #         for chunk in file_to_open.chuncks():
 #             destination.write(chunk)
 
+# BELOW: this fnx will open and read file line by line where 
+# UploadedFile.chunks() is safest read for memory
 def handle_uploaded_file(obj):
     obj = Csv_data.objects.get(activated=False)
     with open(obj.file_name.path, 'wb+') as f:
@@ -110,12 +113,19 @@ def handle_uploaded_file(obj):
 
 def upload_file(request):
     if request.method == 'POST':
-        form = ModelFormWithFileField(request.POST, request.FILES)
+        # csv_file = request.FILES["csv_file"]
+        # print(csv_file)
+        # form = CsvForm(request.POST, request.FILES)
+        form = CsvForm(request.POST, request.FILES)
         if form.is_valid():
-            # file is saved
             form.save()
-            handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect('/success/url/')
+    
+    #         handle_uploaded_file(request.FILES['csv_file'])
+    #     return HttpResponse('test')
+    # return render(request, 'welcome.html',)
+
+            handle_uploaded_file(request.FILES['file_name'])
+        return HttpResponse('test')
     else:
-        form = ModelFormWithFileField()
-    return render(request, 'upload.html', {'form': form})
+        form = CsvForm()
+    return render(request, 'welcome.html', {'form': form})
