@@ -1,5 +1,5 @@
 {% extends 'base.html' %} 
-
+<!-- {% load crispy_forms_tags %} -->
 {% block title %}
 Welcome & Data Upload/Retrieval Page
 {% endblock title %}
@@ -10,12 +10,7 @@ Welcome & Data Upload/Retrieval Page
 <form action="" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 <!-- note {{form}} form defined in views.py as dict key -->
-{{form}}
-<div>
-    <label for="formFileLg" class="form-label">Large file input example</label>
-    <input class="form-control form-control-lg" name="csv_file" id="formFileLg" type="file">
-  </div>
-<button type="submit" class="btn btn-success">Submit</button>
+{{ form }}
 </div>
 </form>
 {% endblock %}
