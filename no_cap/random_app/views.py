@@ -21,6 +21,9 @@ def upload_file(request):
         # below dict[name used in template: value] is what is being passed to html
     return render(request, 'welcome.html', {'form': form})
 
+def token_generation(request):
+    return render(request, 'token_generation.html')
+
            
 # def open_csv(obj):
 #     obj = Csv_data.objects.get(activated=False)
