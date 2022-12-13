@@ -14,15 +14,18 @@ def upload_file(request):
         if form.is_valid():
             # save() is attrib for modelForms won't work with just forms
             form.save()
-            # obj = Csv_data.objects.get(activated=False)
-            # with open(obj.file_name.path, 'wb+') as f:
-            #     for chunk in obj.file_name.path.chunks():
-            #         f.write(chunk)
-            #         print(chunk)
-            # obj.save()            
             return HttpResponse('great')
     else:
             form = CsvForm()
  
         # below dict[name used in template: value] is what is being passed to html
     return render(request, 'welcome.html', {'form': form})
+
+           
+# def open_csv(obj):
+#     obj = Csv_data.objects.get(activated=False)
+#     with open(obj.file_name.path, 'wb+') as f:
+#         for chunk in obj.file_name.path.chunks():
+#             f.write(chunk)
+#             print(chunk)
+                    

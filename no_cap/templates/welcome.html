@@ -1,5 +1,4 @@
 {% extends 'base.html' %} 
-<!-- {% load crispy_forms_tags %} -->
 {% block title %}
 Welcome & Data Upload/Retrieval Page
 {% endblock title %}
@@ -11,6 +10,7 @@ Welcome & Data Upload/Retrieval Page
 {% csrf_token %}
 <!-- note {{form}} form defined in views.py as dict key -->
 {{ form }}
+<button type="submit">Submit</button>
 </div>
 </form>
 {% endblock %}
