@@ -1,6 +1,7 @@
 import glob
 import pandas as pd
 from pathlib import Path
+import numpy as np
 
 path = "media/random_app"
 
@@ -22,19 +23,25 @@ print(data_frame)
 '''ABOVE CODE WORKS
     TESTING BELOW ##
                     '''
-
-# for val in data_frame[1]:
-#     print(val)    
-
+df_list = []
 for column in data_frame:
-    for i in range(len(data_frame)):
-        if data_frame[column][i] != data_frame[column][i+1]:
-            print(data_frame[column].values)
-            print(type(data_frame[column]))
-            print(type(data_frame[column][2]))
-            print(type(data_frame[column].values))
-            
-        break
+    # print(data_frame[column])
+    for index in range(len(data_frame)):
+        # print(data_frame[column][index])
+        if data_frame[column][index] < 0 and type(data_frame[column][index] == int):
+            data_frame[column][index] = abs(data_frame[column][index])
+        df_list.append(data_frame[column][index])
+print(df_list)
+
+remove_duplicates_set = set(df_list)
+print(remove_duplicates_set)
+
+# BELOW: is the list I want to pass to javascript
+clean_list = list(remove_duplicates_set) 
+print(clean_list)
+        
+
+
 
 
 
