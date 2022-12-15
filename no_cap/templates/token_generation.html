@@ -7,11 +7,12 @@ Token Generation Page
 {% block content %}
 <h1> Watch Your Seeds Grow! </h1>
 
-<button type="button" class="btn btn-secondary" data-bs-container="body">
-    View Your Seedling!</button>
+<a href="{% url 'handle_csv' %}">
+    View Your Seedling!</a>
 
 <button type="button" class="btn btn-secondary" data-bs-container="body">
     Store Your Seedling in Your Pot</button>
 
+<script src="typedArrays.js"> let cleanList = "{{clean_list}}"; </script>
 
 {% endblock %}

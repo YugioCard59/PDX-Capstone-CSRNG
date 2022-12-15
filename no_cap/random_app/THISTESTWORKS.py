@@ -27,8 +27,8 @@ df_list = []
 for column in data_frame:
     # print(data_frame[column])
     for index in range(len(data_frame)):
-        # print(data_frame[column][index])
-        if data_frame[column][index] < 0 and type(data_frame[column][index] == int):
+        # print(type(data_frame[column][index]))
+        if data_frame[column][index].dtype.kind in 'iufc':
             data_frame[column][index] = abs(data_frame[column][index])
         df_list.append(data_frame[column][index])
 print(df_list)
