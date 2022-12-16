@@ -2,6 +2,7 @@ import glob
 import pandas as pd
 from pathlib import Path
 import numpy as np
+from json import dumps
 
 path = "media/random_app"
 
@@ -29,7 +30,7 @@ for column in data_frame:
     for index in range(len(data_frame)):
         # print(type(data_frame[column][index]))
         if data_frame[column][index].dtype.kind in 'iufc':
-            data_frame[column][index] = abs(data_frame[column][index])
+            abs(data_frame[column][index])
         df_list.append(data_frame[column][index])
 print(df_list)
 
@@ -39,6 +40,25 @@ print(remove_duplicates_set)
 # BELOW: is the list I want to pass to javascript
 clean_list = list(remove_duplicates_set) 
 print(clean_list)
+print(type(clean_list[2]))
+
+
+def cleanToInt(s):
+    for element in range(len(clean_list)):
+        clean_list[element] = clean_list[element].item()
+    print(type(clean_list[2]))
+    return clean_list
+print(type(cleanToInt(clean_list)[2]))
+
+def listToJson(s):
+    dataJson = dumps(clean_list)
+    return dataJson
+print((listToJson(clean_list)))
+
+
+
+
+
         
 
 

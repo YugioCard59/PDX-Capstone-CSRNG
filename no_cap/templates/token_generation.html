@@ -7,12 +7,35 @@ Token Generation Page
 {% block content %}
 <h1> Watch Your Seeds Grow! </h1>
 
-<a href="{% url 'handle_csv' %}">
+<a href="{% url 'handle_csv' %}" id="cleanList" class="cleanList" onclick="alert_random('{{ clean_list }}')" value="{{clean_list | safe}}">
     View Your Seedling!</a>
 
 <button type="button" class="btn btn-secondary" data-bs-container="body">
     Store Your Seedling in Your Pot</button>
 
-<script src="typedArrays.js"> let cleanList = "{{clean_list}}"; </script>
+
+<script type="text/javascript">
+
+    function alert_random() {    
+        // let clean_list = JSON.parse("{{ jsonCleanList }}");
+//         let typedArray32Array = Uint32Array.from(cleanList, z => z * 3200); //number 3200 can be any whole number*
+//             document.write(typedArray32Array);
+// //BELOW: implements .getRandomValues() a method returns cryptographically strong random numbers; it uses a 
+// //pseudo-random number generator algorithm (PRNG) that varies across user agents**
+//         const newTypedArray = new Uint32Array(typedArray32Array);
+//         self.crypto.getRandomValues(newTypedArray);
+//         const popup = document.querySelector('.cleanList');
+//         for (const num of newTypedArray)
+//             popup.addEventListener('onclick', () =>{
+//                 alert(num);
+//                 console.log(num);
+        console.log(clean_list)
+            // }) 
+            
+}
+</script>
+
+
+
 
 {% endblock %}
