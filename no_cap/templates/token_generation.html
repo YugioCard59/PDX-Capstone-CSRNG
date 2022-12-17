@@ -17,24 +17,43 @@ Token Generation Page
     <script type="text/javascript">
 
         function alert_random() { 
+            fetch("./cleanedList.json")
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    // let typedArray32Array = Uint32Array.from(cleanList1, z => z * 3200); //number 3200 can be any whole number*
+                    // document.write(typedArray32Array);
+                    // const newTypedArray = new Uint32Array(typedArray32Array);
+                    // self.crypto.getRandomValues(newTypedArray);
+                    // const popup = document.querySelector('.cleanList');
+                    // for (const num of newTypedArray)
+                    //     popup.addEventListener('onclick', () =>{
+                    //     alert(num);
+                    //     console.log(num);
+                    console.log(data)
+                })
+                .catch(response =>{
+                    console.error('There has been a problem with your fetch operation: ', error);
+                });
             // JSON parse will convert text to javascript; will parse JSON string and construc5 javascript value/object
             // let cleanList = JSON.parse("{{ clean_list1|escapejs }}");
-            let cleanList = {{ clean_list1 }};
+            // let cleanList = {{ clean_list1 }};
 
-            let typedArray32Array = Uint32Array.from(cleanList, z => z * 3200); //number 3200 can be any whole number*
-                document.write(typedArray32Array);
-    //BELOW: implements .getRandomValues() a method returns cryptographically strong random numbers; it uses a 
-    //pseudo-random number generator algorithm (PRNG) that varies across user agents**
-            const newTypedArray = new Uint32Array(typedArray32Array);
-            self.crypto.getRandomValues(newTypedArray);
-            const popup = document.querySelector('.cleanList');
-            for (const num of newTypedArray)
-                popup.addEventListener('onclick', () =>{
-                    alert(num);
-                    console.log(num);
-        alert('Howdy');
+    //         let typedArray32Array = Uint32Array.from(cleanList, z => z * 3200); //number 3200 can be any whole number*
+    //             document.write(typedArray32Array);
+    // //BELOW: implements .getRandomValues() a method returns cryptographically strong random numbers; it uses a 
+    // //pseudo-random number generator algorithm (PRNG) that varies across user agents**
+    //         const newTypedArray = new Uint32Array(typedArray32Array);
+    //         self.crypto.getRandomValues(newTypedArray);
+    //         const popup = document.querySelector('.cleanList');
+    //         for (const num of newTypedArray)
+    //             popup.addEventListener('onclick', () =>{
+    //                 alert(num);
+    //                 console.log(num);
+    //     alert('Howdy');
                     
-                })            
+    //             })            
                 
     }
     </script>

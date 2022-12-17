@@ -80,6 +80,7 @@ def listToJson(s):
 
 python_list = [-1.25, 2.0, 3.7, 4.99]
 json_string_list = dumps(python_list)
+print(json_string_list)
 
   
 

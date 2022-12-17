@@ -64,17 +64,24 @@ def handle_csv(request):
         if clean_list[element] < 0:
             clean_list[element] = abs(clean_list[element])
             # I MAY NEED TO CONVERT THIS LIST TO A DICT? HERE??  IF NOT DO return clean_list and remove dict
-    clean_list_to_dict = {'clean_list': clean_list}
+    # clean_list_to_dict = {'clean_list1': clean_list}
     # return clean_list_to_dict
     # return render(request, 'token_generation.html', clean_list_to_dict)
 
-
 # def cleaned_handle_csv():
     # newJsonCleanList = {'jsonCleanList': jsonCleanList}
-    jsonCleanList = dumps(clean_list_to_dict)
+    # jsonCleanList = dumps(clean_list)
+    jsonCleanList = dumps(clean_list)
+    jsonFile = open("./templates/cleanedList.json", "w")
+    jsonFile.write(jsonCleanList)
+    jsonFile.close()
+
+    # with open('cleanedList.json', 'w') as f:
+    #     f.write(jsonCleanList)
     # print(jsonCleanList)
-    return JsonResponse({'clean_list1': jsonCleanList}, safe=False, content_type = 'application/json')
+    # return JsonResponse({'clean_list1': jsonCleanList}, safe=False, content_type = 'application/json')
     # render(request, 'token_generation.html', {'clean_list1': jsonCleanList})
+    return render(request, 'token_generation.html')
 
 
     
