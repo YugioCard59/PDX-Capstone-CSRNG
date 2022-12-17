@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from .forms import CsvForm
+from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 # from .models import Csv_data
 from json import dumps
+from django.http import JsonResponse
+
 
 # BELOW: this fnx will open and read file line by line where 
 # UploadedFile.chunks() is safest read for memory
@@ -23,7 +26,7 @@ def upload_file(request):
 def token_generation(request):
     return render(request, 'token_generation.html')
 
-def handle_csv(s):
+def handle_csv(request):
     import glob
     import pandas as pd
     from pathlib import Path
@@ -60,15 +63,18 @@ def handle_csv(s):
             clean_list[element] = float(clean_list[element])
         if clean_list[element] < 0:
             clean_list[element] = abs(clean_list[element])
-            # I MAY NEED TO CONVERT THIS LIST TO A DICT? HERE??
+            # I MAY NEED TO CONVERT THIS LIST TO A DICT? HERE??  IF NOT DO return clean_list and remove dict
     clean_list_to_dict = {'clean_list': clean_list}
-    return clean_list_to_dict 
+    # return clean_list_to_dict
+    # return render(request, 'token_generation.html', clean_list_to_dict)
 
-def cleaned_handle_csv(request):
+
+# def cleaned_handle_csv():
     # newJsonCleanList = {'jsonCleanList': jsonCleanList}
-    jsonCleanList = dumps(handle_csv())
+    jsonCleanList = dumps(clean_list_to_dict)
     # print(jsonCleanList)
-    return render(request, 'token_generation.html', {'clean_list1': jsonCleanList})
+    return JsonResponse({'clean_list1': jsonCleanList}, safe=False, content_type = 'application/json')
+    # render(request, 'token_generation.html', {'clean_list1': jsonCleanList})
 
 
     

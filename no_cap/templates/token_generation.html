@@ -18,7 +18,9 @@ Token Generation Page
 
         function alert_random() { 
             // JSON parse will convert text to javascript; will parse JSON string and construc5 javascript value/object
-            let cleanList = JSON.parse("{{ clean_list1|escapejs }}");
+            // let cleanList = JSON.parse("{{ clean_list1|escapejs }}");
+            let cleanList = {{ clean_list1 }};
+
             let typedArray32Array = Uint32Array.from(cleanList, z => z * 3200); //number 3200 can be any whole number*
                 document.write(typedArray32Array);
     //BELOW: implements .getRandomValues() a method returns cryptographically strong random numbers; it uses a 
