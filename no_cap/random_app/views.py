@@ -23,7 +23,7 @@ def upload_file(request):
 def token_generation(request):
     return render(request, 'token_generation.html')
 
-def handle_csv(request):
+def handle_csv(s):
     import glob
     import pandas as pd
     from pathlib import Path
@@ -56,12 +56,19 @@ def handle_csv(request):
     clean_list = list(remove_duplicates_set)
     for element in range(len(clean_list)):
         clean_list[element] = clean_list[element].item()
-        print(type(clean_list[2]))
-        return clean_list 
+        if type(clean_list[element]) != float:
+            clean_list[element] = float(clean_list[element])
+        if clean_list[element] < 0:
+            clean_list[element] = abs(clean_list[element])
+            # I MAY NEED TO CONVERT THIS LIST TO A DICT? HERE??
+    clean_list_to_dict = {'clean_list': clean_list}
+    return clean_list_to_dict 
 
-    jsonCleanList = dumps(clean_list)
-    
-    return render(request, 'token_generation.html', {'clean_list': jsonCleanList})
+def cleaned_handle_csv(request):
+    # newJsonCleanList = {'jsonCleanList': jsonCleanList}
+    jsonCleanList = dumps(handle_csv())
+    # print(jsonCleanList)
+    return render(request, 'token_generation.html', {'clean_list1': jsonCleanList})
 
 
     
