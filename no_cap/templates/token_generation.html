@@ -8,7 +8,7 @@ Token Generation Page
 <h1> Watch Your Seeds Grow! </h1>
 
 <button style="background-color: transparent; border-color: transparent" type="submit"><a href="{% url 'handle_csv' %}"
-        id="cleanList" class="btn btn-secondary" onclick="alert_random(num)">
+        id="cleanList" class="btn btn-secondary">
         View Your Seedling!</a></button>
 
 <button style="background-color: transparent; border-color: transparent" type="submit"><a href="{% url 'login_home' %}"
@@ -17,24 +17,44 @@ Token Generation Page
 
 
 <script>
+    const cleanList = document.querySelector("#clearList");
     fetch('http://127.0.0.1:8000/static/testJson.json')
         .then(function (response) {
             return response.json()
         })
         .then(function (data) {
-            console.log(data)
-            let typedArray32Array = Uint32Array.from(data, z => z * 3200); //number 3200 can be any whole number*
-            document.write(typedArray32Array);
-            const newTypedArray = new Uint32Array(typedArray32Array);
-            self.crypto.getRandomValues(newTypedArray);
-            for (const num of newTypedArray) {
-                console.log(num)
-            }
-        });
+             console.log(data)
+            // let typedArray32Array = Uint32Array.from(data, z => z * 3200); //number 3200 can be any whole number*
+            // document.write(typedArray32Array);
+            // const newTypedArray = new Uint32Array(typedArray32Array);
+            // self.crypto.getRandomValues(newTypedArray);
+            // console.log(newTypedArray)
+            // for (const num of newTypedArray) {
+            //     console.log(num)
+                
+            });
+        
+    
+    
+    // fetch('http://127.0.0.1:8000/static/testJson.json')
+    //     .then(function (response) {
+    //         return response.json()
+    //     })
+    //     .then(function (data) {
+    //         console.log(data)
+    //         let typedArray32Array = Uint32Array.from(data, z => z * 3200); //number 3200 can be any whole number*
+    //         document.write(typedArray32Array);
+    //         const newTypedArray = new Uint32Array(typedArray32Array);
+    //         self.crypto.getRandomValues(newTypedArray);
+    //         for (const num of newTypedArray) {
+    //             console.log(num)
+    //         }
+    //     });
         // .catch(function (error) {
         //     console.error('There has been a problem with your fetch operation:', error);
         // });
-    console.log('hello');
+    console.log('hello')
+       
 
 </script>
 
