@@ -27,6 +27,7 @@ def token_generation(request):
     return render(request, 'token_generation.html')
 
 def handle_csv(request):
+    print("hello")
     import glob
     import pandas as pd
     from pathlib import Path
@@ -39,49 +40,63 @@ def handle_csv(request):
     for filename in files:
         df =  pd.read_csv(filename, index_col=None)
         content.append(df)
-# ABOVE: for the row in csv containing only the label names
-# define this as content: a list where content[0] = pd's index col=None
-# bc there is no number for the first space, pd index start at data not labels
-# labels being strings is then concatenated to rest of df
+
+# # ABOVE: for the row in csv containing only the label names
+# # define this as content: a list where content[0] = pd's index col=None
+# # bc there is no number for the first space, pd index start at data not labels
+# # labels being strings is then concatenated to rest of df
     data_frame =  pd.concat(content)
+    print(f"Test: {data_frame}")
 
     df_list = []
     for column in data_frame:
     # print(data_frame[column])
         for index in range(len(data_frame)):
-            # print(type(data_frame[column][index]))
-            if data_frame[column][index].dtype.kind in 'iufc':
-                abs(data_frame[column][index])
-            df_list.append(data_frame[column][index])
+            # print((data_frame[column][index]))
+            print(f"Length of df: {len(data_frame)}")
 
-    remove_duplicates_set = set(df_list)
-# BELOW: is the list I want to pass to javascript
-    clean_list = list(remove_duplicates_set)
-    for element in range(len(clean_list)):
-        clean_list[element] = clean_list[element].item()
-        if type(clean_list[element]) != float:
-            clean_list[element] = float(clean_list[element])
-        if clean_list[element] < 0:
-            clean_list[element] = abs(clean_list[element])
-            # I MAY NEED TO CONVERT THIS LIST TO A DICT? HERE??  IF NOT DO return clean_list and remove dict
-    # clean_list_to_dict = {'clean_list1': clean_list}
-    # return clean_list_to_dict
-    # return render(request, 'token_generation.html', clean_list_to_dict)
+    #         if data_frame[column][index].dtype.kind in 'iufc':
+    #             abs(data_frame[column][index])
+    #         df_list.append(data_frame[column][index])
+    # print(f"Testing list: {df_list}")
 
-# def cleaned_handle_csv():
-    # newJsonCleanList = {'jsonCleanList': jsonCleanList}
-    # jsonCleanList = dumps(clean_list)
-    jsonCleanList = dumps(clean_list)
-    jsonFile = open("./templates/cleanedList.json", "w")
-    jsonFile.write(jsonCleanList)
-    jsonFile.close()
+    # remove_duplicates_set = set(df_list)
+# # BELOW: is the list I want to pass to javascript
+    # clean_list = list(remove_duplicates_set)
+    # for element in range(len(clean_list)):
+    #     clean_list[element] = clean_list[element].item()
+    #     if type(clean_list[element]) != float:
+    #         clean_list[element] = float(clean_list[element])
+    #     if clean_list[element] < 0:
+    #         clean_list[element] = abs(clean_list[element])
+    
+#             # I MAY NEED TO CONVERT THIS LIST TO A DICT? HERE??  IF NOT DO return clean_list and remove dict
+#     # clean_list_to_dict = {'clean_list1': clean_list}
+#     # return clean_list_to_dict
+#     # return render(request, 'token_generation.html', clean_list_to_dict)
 
-    # with open('cleanedList.json', 'w') as f:
-    #     f.write(jsonCleanList)
-    # print(jsonCleanList)
-    # return JsonResponse({'clean_list1': jsonCleanList}, safe=False, content_type = 'application/json')
-    # render(request, 'token_generation.html', {'clean_list1': jsonCleanList})
+# # def cleaned_handle_csv():
+#     # newJsonCleanList = {'jsonCleanList': jsonCleanList}
+#     # jsonCleanList = dumps(clean_list)
+#     jsonCleanList = dumps(clean_list)
+#     jsonFile = open("./templates/cleanedList.json", "w")
+#     jsonFile.write(jsonCleanList)
+#     jsonFile.close()
+
+#     # with open('cleanedList.json', 'w') as f:
+#     #     f.write(jsonCleanList)
+#     # print(jsonCleanList)
+#     # return JsonResponse({'clean_list1': jsonCleanList}, safe=False, content_type = 'application/json')
+#     # render(request, 'token_generation.html', {'clean_list1': jsonCleanList})
     return render(request, 'token_generation.html')
+
+
+
+
+    
+
+
+    
 
 
     

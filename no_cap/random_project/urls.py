@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('random_app.urls')),
+    path('login_home/', include('greenhouse_app.urls')),
 ]
 
 # Note: below is a work around since django will not serve uploaded files
