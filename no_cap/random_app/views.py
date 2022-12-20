@@ -48,7 +48,7 @@ def handle_csv(request):
 # # bc there is no number for the first space, pd index start at data not labels
 # # labels being strings is then concatenated to rest of df
     data_frame = pd.concat(content)
-    print(f"Test: {data_frame}")
+    # print(f"Test: {data_frame}")
 
     df_list = []
     for column in data_frame:
