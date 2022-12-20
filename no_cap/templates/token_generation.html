@@ -17,23 +17,23 @@ Token Generation Page
 
 
 <script>
-    fetch('http://127.0.0.1:8000/templates/newJson.json')
+    fetch('http://127.0.0.1:8000/static/testJson.json')
         .then(function (response) {
             return response.json()
         })
         .then(function (data) {
             console.log(data)
-            // let typedArray32Array = Uint32Array.from(cleanList, z => z * 3200); //number 3200 can be any whole number*
-            // document.write(typedArray32Array);
-            // const newTypedArray = new Uint32Array(typedArray32Array);
-            // self.crypto.getRandomValues(newTypedArray);
-            // for (const num of newTypedArray) {
-            //     console.log(num)
-            // }
-        })
-        .catch(function (error) {
-            console.error('There has been a problem with your fetch operation:', error);
+            let typedArray32Array = Uint32Array.from(data, z => z * 3200); //number 3200 can be any whole number*
+            document.write(typedArray32Array);
+            const newTypedArray = new Uint32Array(typedArray32Array);
+            self.crypto.getRandomValues(newTypedArray);
+            for (const num of newTypedArray) {
+                console.log(num)
+            }
         });
+        // .catch(function (error) {
+        //     console.error('There has been a problem with your fetch operation:', error);
+        // });
     console.log('hello');
 
 </script>
