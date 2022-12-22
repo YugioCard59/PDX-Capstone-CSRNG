@@ -47,32 +47,55 @@ Token Generation Page
                 const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
                 const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
                 alert(hashHex)
-                writeToFile('http://127.0.0.1:8000/static/cleanedList.json', hashHex);
-                console.log(typeof(hashHex))
-                return hashHex;  
+                // writeToFile('http://127.0.0.1:8000/static/cleanedList.json', hashHex);
+                hashToJson(hashHex)
+                return hashHex; 
+
             }
             digestMessage(text) 
             .then((digestHex) => console.log(digestHex));
-        
+            
         });
+        
+        function hashToJson(hashHex){
+        const fileSystem = require("browserify-fs")
+        const hashedRandom = hashHex
+        const jsonHash = JSON.stringify(hashedRandom)
+        console.log("This is json" + jsonHash)
+        FileSystem.writeFile("/static/cleanedList.json", data, err=>{
+                if(err){
+                    console.log("Error writing file", err)
+                } else {
+                    console.log('JSON data is written in file')
+                }
+        })
+    }
     
+        // function writeJson() {
+        //     FileSystem.writeFile("/static/cleanedList.json", data, err=>{
+        //         if(err){
+        //             console.log("Error writing file", err)
+        //         } else {
+        //             console.log('JSON data is written in file')
+        //         }
+        //     })
+        // }
 
-    
 
-    function writeToFile(cleanedList, hashHex) {
-        console.log("string")
-  const file = new Blob([hashHex], {type: 'application/json'});
-  const a = document.createElement('a');
-  const url = URL.createObjectURL(file);
-  a.href = url;
-  a.download = cleanedList;
-  document.body.appendChild(a);
-//   a.alert(hashHex);
-  setTimeout(function() {
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  }, 0);
-}
+//     function writeToFile(cleanedList, hashHex) {
+//         console.log("string")
+//   const file = new Blob([hashHex], {type: 'application/json'});
+//   const a = document.createElement('a');
+//   const url = URL.createObjectURL(file);
+//   a.href = url;
+//   a.download = cleanedList;
+//   document.body.appendChild(a);
+// //   a.alert(hashHex);
+//   setTimeout(function() {
+//     document.body.removeChild(a);
+//     window.URL.revokeObjectURL(url);
+//   }, 0);
+// }
 
         
         
