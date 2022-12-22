@@ -11,13 +11,13 @@ Token Generation Page
         id="cleanList" class="btn btn-secondary">
         View Your Seedling!</a></button>
 
-<button style="background-color: transparent; border-color: transparent" type="submit"><a href="{% url 'greenhouse_app:login_home' %}"
-        class="btn btn-secondary" data-bs-container="body">
+<button style="background-color: transparent; border-color: transparent" type="submit"><a
+        href="{% url 'greenhouse_app:login_home' %}" class="btn btn-secondary" data-bs-container="body">
         Store Your Seedling in Your Pot</a></button>
-        
-        
-        <script>
-         
+
+
+<script>
+
     const cleanList = document.querySelector("#clearList");
     fetch('http://127.0.0.1:8000/static/cleanedList.json')
         .then(function (response) {
@@ -48,59 +48,69 @@ Token Generation Page
                 const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
                 alert(hashHex)
                 // writeToFile('http://127.0.0.1:8000/static/cleanedList.json', hashHex);
-                hashToJson(hashHex)
-                return hashHex; 
-
-            }
-            digestMessage(text) 
-            .then((digestHex) => console.log(digestHex));
-            
-        });
-        
-        function hashToJson(hashHex){
-        const fileSystem = require("browserify-fs")
-        const hashedRandom = hashHex
-        const jsonHash = JSON.stringify(hashedRandom)
-        console.log("This is json" + jsonHash)
-        FileSystem.writeFile("/static/cleanedList.json", data, err=>{
-                if(err){
-                    console.log("Error writing file", err)
-                } else {
-                    console.log('JSON data is written in file')
-                }
-        })
-    }
-    
-        // function writeJson() {
-        //     FileSystem.writeFile("/static/cleanedList.json", data, err=>{
-        //         if(err){
-        //             console.log("Error writing file", err)
-        //         } else {
-        //             console.log('JSON data is written in file')
-        //         }
-        //     })
-        // }
-
-
-//     function writeToFile(cleanedList, hashHex) {
-//         console.log("string")
-//   const file = new Blob([hashHex], {type: 'application/json'});
+                // hashToJson(hashHex)
+//                 function writeToFile(fileName, str) {
+//   const file = new Blob([str], {type: 'text/plain'});
 //   const a = document.createElement('a');
 //   const url = URL.createObjectURL(file);
 //   a.href = url;
-//   a.download = cleanedList;
+//   a.download = fileName;
 //   document.body.appendChild(a);
-// //   a.alert(hashHex);
+//   a.click();
 //   setTimeout(function() {
 //     document.body.removeChild(a);
 //     window.URL.revokeObjectURL(url);
 //   }, 0);
 // }
 
-        
-        
-        
-            
+// writeToFile('hello.json', hashHex);
+function writeToFile(fileName, str, folder) {
+  const file = new Blob([str], {type: 'text/plain', webkitRelativePath: folder});
+  const a = document.createElement('a');
+  const url = URL.createObjectURL(file);
+  a.href = url;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() {
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }, 0);
+}
+
+writeToFile('hello.txt', 'hello', 'C:\Users\isaco\Desktop\PDX-Capstone-CSRNG\no_cap\static');
+
+
+                return hashHex;
+
+            }
+            digestMessage(text)
+                .then((digestHex) => console.log(digestHex));
+
+        });
+
+    //     const fs = require('fs')
+    // function hashToJson(hashHex) {
+    //     const hashedRandom = hashHex
+    //     const jsonHash = JSON.stringify(hashedRandom)
+    //     console.log("This is json" + jsonHash)
+    //     // const blob = new Blob([jsonHash], {
+    //     //     type: "application/json",
+    //     // })
+    //     // const cleanedList = new File([jsonHash], './static/cleanedList.json', {
+    //     //     type: "application/json",
+    //     // })
+    //     // console.log(cleanedList)
+    //     // return cleanedList
+    //     // formData.append('token', jsonHash, './static/cleanedList.json')
+    //     // console.log(formData)
+    //     fs.writeFile('/static/cleanedList.json', jsonHash, (err) => {
+    //         if (err) throw err;
+    //     })
+    
+    // }
+
+    
 </script>
 
 
