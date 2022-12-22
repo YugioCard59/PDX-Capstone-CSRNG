@@ -72,7 +72,7 @@ def handle_csv(request):
             clean_list[element] = abs(clean_list[element])
 
     jsonCleanList = dumps(clean_list)
-    jsonFile = open("./templates/cleanedList.json", "w")
+    jsonFile = open("./static/cleanedList.json", "w")
     jsonFile.write(jsonCleanList)
     jsonFile.close()
     print(jsonCleanList)

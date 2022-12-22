@@ -11,14 +11,15 @@ Token Generation Page
         id="cleanList" class="btn btn-secondary">
         View Your Seedling!</a></button>
 
-<button style="background-color: transparent; border-color: transparent" type="submit"><a href="{% url 'login_home' %}"
+<button style="background-color: transparent; border-color: transparent" type="submit"><a href="{% url 'greenhouse_app:login_home' %}"
         class="btn btn-secondary" data-bs-container="body">
         Store Your Seedling in Your Pot</a></button>
-
-
-<script>
+        
+        
+        <script>
+         
     const cleanList = document.querySelector("#clearList");
-    fetch('http://127.0.0.1:8000/static/testJson.json')
+    fetch('http://127.0.0.1:8000/static/cleanedList.json')
         .then(function (response) {
             return response.json()
         })
@@ -46,38 +47,37 @@ Token Generation Page
                 const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
                 const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
                 alert(hashHex)
-                return hashHex;
+                console.log(typeof(hashHex))
+                return hashHex;  
             }
-
-            digestMessage(text)
-                .then((digestHex) => console.log(digestHex));
+            digestMessage(text) 
+            .then((digestHex) => console.log(digestHex));
+        
         });
+    
 
+    
 
+    function writeToFile(cleanedList, hashHex) {
+        console.log("string")
+  const file = new Blob([hashHex], {type: 'application/json'});
+  const a = document.createElement('a');
+  const url = URL.createObjectURL(file);
+  a.href = url;
+  a.download = cleanedList;
+  document.body.appendChild(a);
+  a.alert(hashHex);
+  setTimeout(function() {
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }, 0);
+}
 
-
-
-
-    // fetch('http://127.0.0.1:8000/static/testJson.json')
-    //     .then(function (response) {
-    //         return response.json()
-    //     })
-    //     .then(function (data) {
-    //         console.log(data)
-    //         let typedArray32Array = Uint32Array.from(data, z => z * 3200); //number 3200 can be any whole number*
-    //         document.write(typedArray32Array);
-    //         const newTypedArray = new Uint32Array(typedArray32Array);
-    //         self.crypto.getRandomValues(newTypedArray);
-    //         for (const num of newTypedArray) {
-    //             console.log(num)
-    //         }
-    //     });
-    // .catch(function (error) {
-    //     console.error('There has been a problem with your fetch operation:', error);
-    // });
-    console.log('hello')
-
-
+writeToFile('/static/cleanedList.json', hashHex);
+        
+        
+        
+            
 </script>
 
 

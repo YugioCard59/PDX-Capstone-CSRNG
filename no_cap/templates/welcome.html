@@ -5,6 +5,7 @@ Welcome & Data Upload/Retrieval Page
 
 {% block content %}
 <h1> Welcome to Data Page</h1>
+<h3>Rules:  max file size 2KB and only file extention accepted is .csv</h3>
 <div class="import_files">
 <form action="" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
