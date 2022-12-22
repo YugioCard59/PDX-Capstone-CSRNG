@@ -22,7 +22,7 @@ def signup(request):
 
         messages.success(request, "Your account has been successfully created!")
         
-    return redirect("signin")
+    return render(request, "greenhouse_app/signin.html")
 
 def signin(request):
     if request.method == "POST":
@@ -34,12 +34,12 @@ def signin(request):
         if user is not None:
             login(request, user)
             username = user.username
-            return render(request, "greenhouse_app/login_home.html", {'username': username})
+            return render(request, "login_home.html", {'username': username})
 
         else:
             messages.error(request, "Bad Credentials")
             return redirect('login_home')
-
+# MUST KEEP GREENHOUSE APP/ bc defined in urls
     return render(request, "greenhouse_app/signin.html")
 
 def signout(request):

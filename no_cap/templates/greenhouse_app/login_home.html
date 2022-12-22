@@ -22,7 +22,7 @@ Login
 {% else %}
 
 <button type="submit"> <a href="{% url 'greenhouse_app:signup' %}">SignUp</a></button>
-<button type="submit"> <a href="signin">SignIn</a></button>
+<button type="submit"> <a href="{% url 'greenhouse_app:signin' %}">SignIn</a></button>
 {% endif %}
 
 
