@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Token Generation Page
@@ -7,16 +8,23 @@ Token Generation Page
 {% block content %}
 <h1> Watch Your Seeds Grow! </h1>
 
-<button style="background-color: transparent; border-color: transparent" type="submit"><a href="{% url 'handle_csv' %}"
+<button style="background-color: transparent; border-color: transparent" type="submit"><a href="{% url 'random_app:handle_csv' %}"
         id="cleanList" class="btn btn-secondary">
         View Your Seedling!</a></button>
+        <!-- <a href="{% static 'downloads/clearList.json' %}"></a> -->
 
-<button style="background-color: transparent; border-color: transparent" type="submit"><a
-        href="{% url 'greenhouse_app:login_home' %}" class="btn btn-secondary" data-bs-container="body">
-        Store Your Seedling in Your Pot</a></button>
-
+        
+        <button style="background-color: transparent; border-color: transparent" type="submit"><a
+            href="{% url 'greenhouse_app:login_home' %}" class="btn btn-secondary" data-bs-container="body">
+            Store Your Seedling in Your Pot</a></button>
+            
+<!-- <form action="" method="POST">
+{% csrf_token %} -->
+    <span hidden id="writeToDom" name="writeToDOM"></span>
+<!-- </form>             -->
 
 <script>
+
 
     const cleanList = document.querySelector("#clearList");
     fetch('http://127.0.0.1:8000/static/cleanedList.json')
@@ -24,21 +32,12 @@ Token Generation Page
             return response.json()
         })
         .then(function (data) {
-            // console.log(data)
             let typedArray32Array = Uint32Array.from(data, z => z * 3200); //number 3200 can be any whole number*
-            // document.write(typedArray32Array);
             const newTypedArray = new Uint32Array(typedArray32Array);
             self.crypto.getRandomValues(newTypedArray);
             console.log(newTypedArray)
-            // for (const num of newTypedArray) {
-            //     numToString = num.toString()
-            //     newString = numToString.concat(numToString)
-            //     console.log(newString)
-            //     newNum = parseInt(newString)
-
             newNum = newTypedArray.join("")
             newNumnum = parseInt(newNum)
-
             const text = newNum;
 
             async function digestMessage(message) {
@@ -47,71 +46,22 @@ Token Generation Page
                 const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
                 const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
                 alert(hashHex)
-                // writeToFile('http://127.0.0.1:8000/static/cleanedList.json', hashHex);
-                // hashToJson(hashHex)
-//                 function writeToFile(fileName, str) {
-//   const file = new Blob([str], {type: 'text/plain'});
-//   const a = document.createElement('a');
-//   const url = URL.createObjectURL(file);
-//   a.href = url;
-//   a.download = fileName;
-//   document.body.appendChild(a);
-//   a.click();
-//   setTimeout(function() {
-//     document.body.removeChild(a);
-//     window.URL.revokeObjectURL(url);
-//   }, 0);
-// }
-
-// writeToFile('hello.json', hashHex);
-function writeToFile(fileName, str, folder) {
-  const file = new Blob([str], {type: 'text/plain', webkitRelativePath: folder});
-  const a = document.createElement('a');
-  const url = URL.createObjectURL(file);
-  a.href = url;
-  a.download = fileName;
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(function() {
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  }, 0);
-}
-
-writeToFile('hello.txt', 'hello', 'C:\Users\isaco\Desktop\PDX-Capstone-CSRNG\no_cap\static');
-
+                console.log("this is hash" + hashHex)
+                const writeToDom = document.getElementById('writeToDom')
+                writeToDom.innerHTML = hashHex
 
                 return hashHex;
 
             }
             digestMessage(text)
-                .then((digestHex) => console.log(digestHex));
+                .then((digestHex) => console.log("this is digest" + digestHex));
+            
+            });
+           
 
-        });
-
-    //     const fs = require('fs')
-    // function hashToJson(hashHex) {
-    //     const hashedRandom = hashHex
-    //     const jsonHash = JSON.stringify(hashedRandom)
-    //     console.log("This is json" + jsonHash)
-    //     // const blob = new Blob([jsonHash], {
-    //     //     type: "application/json",
-    //     // })
-    //     // const cleanedList = new File([jsonHash], './static/cleanedList.json', {
-    //     //     type: "application/json",
-    //     // })
-    //     // console.log(cleanedList)
-    //     // return cleanedList
-    //     // formData.append('token', jsonHash, './static/cleanedList.json')
-    //     // console.log(formData)
-    //     fs.writeFile('/static/cleanedList.json', jsonHash, (err) => {
-    //         if (err) throw err;
-    //     })
-    
-    // }
-
-    
 </script>
+
+
 
 
 

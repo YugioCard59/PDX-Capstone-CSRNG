@@ -2,5 +2,9 @@
   "dependencies": {
     "browserify-fs": "^1.0.0",
     "file-saver": "^2.0.5"
-  }
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.29.1"
+  },
+  "scripts": {}
 }

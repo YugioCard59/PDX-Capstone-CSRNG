@@ -6,7 +6,7 @@ Signin
 {% block content %}
 <h1> Welcome to Sign In</h1>
 
-<form action="/signup" method="POST">
+<form action="{% url 'greenhouse_app:signin' %}" method="POST">
     {% csrf_token %}
     <label for="">Username</label>
     <input type="text" id="username" name="username" placeholder="Create username (Alphanumeric Only)" required>
@@ -14,7 +14,7 @@ Signin
     <label for="">Password</label>
     <input type="password" id="password" name="password" placeholder="Create username password" required>
     <br>
-    <button type="submit">Sign Up</button>
+    <button type="submit">Sign In</button>
 
 </form>
 

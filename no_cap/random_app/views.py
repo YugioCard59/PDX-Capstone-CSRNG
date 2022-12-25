@@ -5,6 +5,15 @@ from django.http import HttpResponse
 # from .models import Csv_data
 from json import dumps
 from django.http import JsonResponse
+from html.parser import HTMLParser
+from greenhouse_app.models import Token_storage
+import os
+import time
+from bs4 import BeautifulSoup
+import csv
+import requests
+import json
+from django.http import JsonResponse
 
 
 # BELOW: this fnx will open and read file line by line where
@@ -33,6 +42,7 @@ def handle_csv(request):
     import pandas as pd
     from pathlib import Path
     import numpy as np
+    
 
     path = "media/random_app"
     files = glob.glob(path + '/*.csv')
@@ -76,4 +86,38 @@ def handle_csv(request):
     jsonFile.write(jsonCleanList)
     jsonFile.close()
     print(jsonCleanList)
+    # time.sleep(5)
+    # path = "./static/cleanedList.json"
+    # isFile = os.path.isfile(path)
+    # print(isFile)
+    # if isFile:
+    #     os.remove(path)
+    # time.sleep(2)
+    # path = Path.cwd().joinpath('templates', 'token_generation.html').read_text()
+    # URL = "http://127.0.0.1:8000/handle_csv"
+    # r = requests.get(URL)
+    # soup = BeautifulSoup(r.content, 'html5lib')
+    # print(soup.prettify())
+
+    # with open('templates/token_generation.html', 'r') as f:
+    #     contents = f.read()
+    #     soup = BeautifulSoup(contents, 'html5lib')
+    #     print(soup.span)
+
+     
     return render(request, 'token_generation.html')
+
+# def test(request):
+#     hashHex = request.GET['data']
+#     return JsonResponse({'hashHex': hashHex})
+
+# def delete_temp(request):
+#    path = "./static/cleanedList.json"
+#    isFile = os.path.isfile(path)
+#    print(isFile)
+#    if isFile:
+#     os.remove(path)
+#     return render(request, "token_generation.html")
+
+
+
