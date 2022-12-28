@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from .models import Token_storage
 from html.parser import HTMLParser
 import requests
@@ -16,8 +16,12 @@ def login_home(request):
     #     print(response.text)
     #     return render(request, "greenhouse_app/login_home.html")
     # else:
-        return render(request, "greenhouse_app/login_home.html")
+    return render(request, "greenhouse_app/login_home.html")
         # return render(request, "greenhouse_app/login_home.html")
+
+def show_seedling(request, getHex):
+    print(getHex)
+    return render(request, "greenhouse_app/show_seedling.html")
 
 # class TokenStorage(HTMLParser):
 
@@ -54,14 +58,23 @@ def signup(request):
         password = request.POST['password']
         email = request.POST['email']
         confirmpw = request.POST['confirmpw']
-        
+# BELOW validations
+        # if User.objects.filter(username=username) or User.objects.filter(email=email):
+        #     messages.error(request, "Sign Up Failed! Please enter a different username and/or email")
+        #     return redirect('greenhouse_app:login')
+        # if len(username)>10:
+        #     messages.error(request, "Username must be under 10 alphanumeric characters")
+        # if password != confirmpw:
+        #     messages.error(request, "Password did not match!")
+        # if not username.isalnum():
+        #     messages.error(request, "Username must be alphanumeric characters")
+        #     return redirect('greenhouse_app:login_home')
         myuser = User.objects.create_user(username, email, password)
         myuser.username = username
         myuser.save()
 
         messages.success(
             request, "Your account has been successfully created!")
-        # return HttpResponse("where am i")
         return redirect('greenhouse_app:signin')
     
     return render(request, "greenhouse_app/signup.html")
@@ -87,4 +100,7 @@ def signin(request):
 
 
 def signout(request):
-    pass
+    logout(request)
+    messages.success(request, "Logged Out Successfully")
+    return redirect('greenhouse_app:login_home')
+    

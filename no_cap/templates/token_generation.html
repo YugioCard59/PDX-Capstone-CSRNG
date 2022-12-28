@@ -16,22 +16,20 @@ Token Generation Page
         
         <button style="background-color: transparent; border-color: transparent" type="submit"><a
             href="{% url 'greenhouse_app:login_home' %}" class="btn btn-secondary" data-bs-container="body">
-            Store Your Seedling in Your Pot</a></button>
+            Store Your Seedling in Your Greenhouse</a></button>
             
-<!-- <form action="" method="POST">
-{% csrf_token %} -->
-    <span hidden id="writeToDom" name="writeToDOM"></span>
-<!-- </form>             -->
+
 
 <script>
 
 
-    const cleanList = document.querySelector("#clearList");
+    // const cleanList = document.querySelector("#clearList");
     fetch('http://127.0.0.1:8000/static/cleanedList.json')
         .then(function (response) {
             return response.json()
         })
         .then(function (data) {
+        
             let typedArray32Array = Uint32Array.from(data, z => z * 3200); //number 3200 can be any whole number*
             const newTypedArray = new Uint32Array(typedArray32Array);
             self.crypto.getRandomValues(newTypedArray);
@@ -46,18 +44,56 @@ Token Generation Page
                 const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
                 const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
                 alert(hashHex)
-                console.log("this is hash" + hashHex)
-                const writeToDom = document.getElementById('writeToDom')
-                writeToDom.innerHTML = hashHex
+                // console.log("this is hash" + typeof(hashHex))
+                // const writeToDom = document.getElementById('writeToDom')
+                // writeToDom.innerHTML = hashHex
 
                 return hashHex;
 
             }
-            digestMessage(text)
-                .then((digestHex) => console.log("this is digest" + digestHex));
             
-            });
-           
+            digestMessage(text)
+            .then((digestHex) => 
+            console.log("this is digest" + (digestHex)))
+            
+            // console.log(digestMessage(text))
+
+            digestMessage(text).then(function (response){
+                // console.log(response)
+                getHashHex = response
+                console.log(getHashHex)
+                // console.log(typeof(getHashHex))
+                // writeToDom.value = getHashHex
+                // window.location.replace(`http://127.0.0.1:8000/login_home/show_seedling/${getHashHex}`)
+                return getHashHex
+            })
+        
+            
+            // .then((result)=>{fetch("http://127.0.0.1:8000/login_home/show_seedling", {
+            //     method: 'POST',
+            //     headers: {
+            //     "X-CSRF-Token": csrfToken,
+            //     'Content-Type': 'application/json',
+            // },
+            //     body: JSON.stringify(data),
+                
+            // })
+            // .then((response) => response.json())
+            // .then((result)=> {
+            //     console.log(result)
+            // })
+        // });
+
+// fetch(url, options).then(response => {
+//     console.log(data['hashHex'])
+});
+        
+
+    
+            
+        
+        
+    
 
 </script>
 
