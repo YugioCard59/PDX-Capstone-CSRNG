@@ -27,25 +27,13 @@ def login_home(request):
 
 def show_seedling(request):
     dir = './media/random_app/'
-    # for file in os.scandir(dir):
-    #     os.isfile(file)
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
-
-
     path = "./static/cleanedList.json"
     isFile = os.path.isfile(path)
     print(isFile)
     if isFile:
         os.remove(path)
-    # fs = FileSystemStorage(location='/media/random_app')
-    # fs.delete("3.csv")
-    # Csv_data.file_name.delete()
-    # path = "./media/random_app/Csv_data.file_name"
-    # isFile = os.path.isfile(path)
-    # print(isFile)
-
-
     return render(request, "greenhouse_app/show_seedling.html")
 
 def signup(request):
