@@ -16,7 +16,7 @@ Token Generation Page
         href="{% url 'greenhouse_app:login_home' %}" class="btn btn-secondary" data-bs-container="body">
         Store Your Seedling in Your Greenhouse</a></button> -->
 
-        <!--Alternative is below  -->
+        <!--Alternative is below KEEP above -->
 <button style="background-color: transparent; border-color: transparent" type="submit"><a href="{% url 'random_app:handle_csv' %}" id="getTheHash" class="btn btn-secondary"> View </a></button><br>
 <form action="{% url 'greenhouse_app:login_home' %}" method="POST">
     {% csrf_token %}
@@ -38,7 +38,6 @@ Token Generation Page
             self.crypto.getRandomValues(newTypedArray);
             console.log(newTypedArray)
             newNum = newTypedArray.join("")
-            // newNumnum = parseInt(newNum)
             const text = newNum
              async function digestMessage(message) {
                 const msgUint8 = new TextEncoder().encode(message)                           // encode as (utf-8) Uint8Array
@@ -46,7 +45,6 @@ Token Generation Page
                 const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
                 const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
                 alert(hashHex)
-                // console.log("this is hash" + typeof(hashHex))
                 const writeToDom = document.getElementById('writeToDom')
                 writeToDom.innerHTML = hashHex
                 writeToDom.value = hashHex
@@ -57,13 +55,6 @@ Token Generation Page
                 .then((digestHex) => 
                     console.log("this is digest" + (digestHex)))
                 })
-
-
 </script>
-
-
-
-
-
 
 {% endblock %}

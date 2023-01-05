@@ -9,8 +9,5 @@ urlpatterns = [
     path('signup/', views.signup, name="signup"),
     path('signin/', views.signin, name="signin"),
     path('signout/', views.signout, name="signout"),
-    # path('token_storage/', views.token_storage, name="token_storage"),
-    # path('storage/', views.TokenStorage, name="storage"),
-    # path('show_seedling/<str:getHashHex>/', views.show_seedling, name="show_seedling"),
     path('show_seedling/', views.show_seedling, name="show_seedling"),
 ]

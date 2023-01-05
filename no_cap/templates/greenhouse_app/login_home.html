@@ -20,7 +20,6 @@ Login
 <h3>Howdy {{ username }}</h3>
 <h4>You have successfully logged in!</h4>
 <button type="submit"> <a href="{% url 'greenhouse_app:signout' %}">SignOut</a></button>
-<!-- <button onclick="hashFromCsv(this.value)" value="getHashHex"></button> -->
 <button id="hashFromCsv"><a href="{% url 'greenhouse_app:show_seedling' %}">Show Seedling</a></button>
 {% else %}
 
@@ -29,9 +28,6 @@ Login
 {% endif %}
 
 <script>
-// function hashFromCsv(getHashHex) {
-//             fetch(`login_home/show_seedling/${getHashHex}`)
-//             .then(response=>response.json())
 
 </script>
 
