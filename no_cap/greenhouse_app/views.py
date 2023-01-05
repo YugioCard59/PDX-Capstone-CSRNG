@@ -7,8 +7,10 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from .models import Token_storage
+from random_app.models import Csv_data
+from django.core.files.storage import FileSystemStorage
 # from .forms import StorageForm
-import os
+import os, glob
 from html.parser import HTMLParser
 import requests
 import json
@@ -24,11 +26,25 @@ def login_home(request):
         # return render(request, "greenhouse_app/login_home.html")
 
 def show_seedling(request):
+    dir = './media/random_app/'
+    # for file in os.scandir(dir):
+    #     os.isfile(file)
+    for f in os.listdir(dir):
+        os.remove(os.path.join(dir, f))
+
+
     path = "./static/cleanedList.json"
     isFile = os.path.isfile(path)
     print(isFile)
     if isFile:
         os.remove(path)
+    # fs = FileSystemStorage(location='/media/random_app')
+    # fs.delete("3.csv")
+    # Csv_data.file_name.delete()
+    # path = "./media/random_app/Csv_data.file_name"
+    # isFile = os.path.isfile(path)
+    # print(isFile)
+
 
     return render(request, "greenhouse_app/show_seedling.html")
 
