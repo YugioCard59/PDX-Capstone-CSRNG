@@ -15,16 +15,24 @@ Login
 <h1> Welcome to Login Page</h1>
 
 
+
 {% if user.is_authenticated %}
 <h3>Howdy {{ username }}</h3>
 <h4>You have successfully logged in!</h4>
 <button type="submit"> <a href="{% url 'greenhouse_app:signout' %}">SignOut</a></button>
-<button type="submit"> <a href="{% url 'greenhouse_app:show_seedling/{{getHashHex}}"> Show number </a></button>
+<!-- <button onclick="hashFromCsv(this.value)" value="getHashHex"></button> -->
+<button id="hashFromCsv"><a href="{% url 'greenhouse_app:show_seedling' %}">Show Seedling</a></button>
 {% else %}
 
-<button type="submit"> <a href="{% url 'greenhouse_app:signup' %}">SignUp</a></button>
+<button type="submit" > <a href="{% url 'greenhouse_app:signup' %}">SignUp</a></button>
 <button type="submit"> <a href="{% url 'greenhouse_app:signin' %}">SignIn</a></button>
 {% endif %}
 
+<script>
+// function hashFromCsv(getHashHex) {
+//             fetch(`login_home/show_seedling/${getHashHex}`)
+//             .then(response=>response.json())
+
+</script>
 
 {% endblock %}

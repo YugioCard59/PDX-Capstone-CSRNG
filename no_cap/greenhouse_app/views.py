@@ -1,36 +1,60 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from .models import Token_storage
+from .forms import StorageForm
 from html.parser import HTMLParser
 import requests
+import json
 
 
 def login_home(request):
-    # if request.method == 'GET':
-    #     response = requests.get("http://127.0.0.1:8000/handle_csv/")
-    #     print(response.text)
-    #     return render(request, "greenhouse_app/login_home.html")
-    # else:
-    return render(request, "greenhouse_app/login_home.html")
+    if request.method == "POST" and User.is_authenticated:
+        getHash = request.POST['writeToDom']
+        print(getHash)
+        # print(content)
+        # print(type(content))
+        # json_get_Hash = getHash.json()
+        # json_getHash = json.loads(json_get_Hash)
+        # print(type(json_getHash))
+        # new_toke = Token_storage(token_value=getHash)= getHash
+        new_token_form = Token_storage(token_value=getHash, )
+        # if new_token_form.is_valid():
+        new_token_form.save()
+    return render(request, "greenhouse_app/login_home.html", {'new_token_form': new_token_form})
         # return render(request, "greenhouse_app/login_home.html")
 
-def show_seedling(request, getHex):
-    print(getHex)
+def show_seedling(request):
+    # if request.method == "POST":
+    #     print(getHash)
+    #     token_value = getHash
+    #     new_token = Token_storage(token_value=token_value)
+    #     new_token.create()
+    #     new_token.save()
+    
+
+    #     print(request.body)
+    #     getHash = json.loads(request.body.decode("utf-8"))
+    #     print(getHash)
+    # getHash = request.POST.get("jsonField", "")
+    # getHashex = request.POST.get('getHashHex')
+    # print(request.GET.get('getHashHex'))
+    # print(request.body)
+        
+    # # getHashHex = request.POST['getHashHex']
+    #     # geHashHex = {'getHashHex': getHashHex}
+    # print(getHashex)
+    # print(json.loads(getHashHex))
+    # print(getHashHex)
+    # return JsonResponse(request.body)
     return render(request, "greenhouse_app/show_seedling.html")
 
-# class TokenStorage(HTMLParser):
 
-#     def handle_starttag(self, tag, attrs):
-#         for attr, val in attrs:
-#             if attr == "hidden" and tag == "span":
-#                 copyHash = val
-#                 print(copyHash)
-#         return copyHash
 
 
 
