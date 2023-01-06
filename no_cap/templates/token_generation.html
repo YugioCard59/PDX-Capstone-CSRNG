@@ -6,7 +6,8 @@ Token Generation Page
 {% endblock title %}
 
 {% block content %}
-<h1> Watch Your Seeds Grow! </h1>
+<div class="container">
+<h1><strong>Watch Your Seeds Grow!</strong></h1>
 
 <!-- <button style="background-color: transparent; border-color: transparent" type="submit"><a
         href="{% url 'random_app:handle_csv' %}" id="cleanList" class="btn btn-secondary">
@@ -17,14 +18,15 @@ Token Generation Page
         Store Your Seedling in Your Greenhouse</a></button> -->
 
         <!--Alternative is below KEEP above -->
-<button style="background-color: transparent; border-color: transparent" type="submit"><a href="{% url 'random_app:handle_csv' %}" id="getTheHash" class="btn btn-secondary"> View </a></button><br>
+<button class="btn btn-secondary btn-lg" type="submit"><a href="{% url 'random_app:handle_csv' %}" id="getTheHash" style="color:whitesmoke"> View </a></button><br>
 <form action="{% url 'greenhouse_app:login_home' %}" method="POST">
     {% csrf_token %}
-   
-    <label for="writeToDom">View & Save</label><br>
-<input id="writeToDom" name="writeToDom" value="{{writeToDom}}" placeholder="Your Seedling Appears Here">
-<button type="submit" class="btn btn-secondary btn-lg">Save</button>
+    
+    <label for="writeToDom" style="text-align: center; align-items: center;"><strong>View & Save</strong></label><br>
+    <input id="writeToDom" style="width:20rem !important;" name="writeToDom" value="{{writeToDom}}" placeholder="Your Seedling Appears Here">
+    <button type="submit" class="btn btn-secondary btn-lg">Save</button>
 </form>
+</div>
 
 <script>
     fetch('http://127.0.0.1:8000/static/cleanedList.json')

@@ -7,10 +7,18 @@ Show Seedling and Save to Greenhouse
 {% block content %}
 <body style="background-color: transparent; align-items: center;
 margin: auto;"></body>
-<h1><strong> Welcome to Your Greenhouse</strong></h1>
+<h1 style="text-align: center; align-content: center;"><strong> Welcome to Your Greenhouse</strong></h1>
 
-<div>
-    <p id="showMe"></p>
+<div class="container" id="show_list">
+    <h1>Your Seedlings</h1>
+
+{% for seedling in seedling_list %}
+<ul>
+    <li><strong>{{ seedling.token_value }}</strong></li>
+</ul>
+<br>
+{% endfor %}
+    
 </div>
 
 

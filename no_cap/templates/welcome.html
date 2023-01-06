@@ -1,11 +1,21 @@
+<style>
+    .import_files {margin-left: 55rem;}
+    label {font-weight: bold !important; font-size: larger;}
+    #id_file_name {font-weight: bold !important; font-size: larger; margin-right: -5rem;}
+</style>
 {% extends 'base.html' %} 
 {% block title %}
 Welcome & Data Upload/Retrieval Page
 {% endblock title %}
 
 {% block content %}
-<h1> Welcome:  Plant Your Seed Here!</h1>
-<h3>Rules:  <br>max file size 2KB <br> only file extention accepted is .csv</h3>
+
+<div class="container">
+<h1><strong> Welcome:  Plant Your Seed Here!</strong></h1>
+<h3>Rules:  
+    <br>Max file size 2KB 
+    <br>Only .csv files</h3>
+</div>
 <div class="import_files">
 <form action="" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
