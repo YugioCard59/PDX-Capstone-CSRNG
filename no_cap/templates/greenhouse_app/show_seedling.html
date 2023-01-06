@@ -1,10 +1,12 @@
-<html style="background: url(/static/greenhouse.png) no-repeat center center fixed !important; background-size: cover !important; opacity: 0.8">
-{% extends 'base.html' %} 
+<html
+    style="background: url(/static/greenhouse.png) no-repeat center center fixed !important; background-size: cover !important; opacity: 0.8">
+{% extends 'base.html' %}
 {% block title %}
 Show Seedling and Save to Greenhouse
 {% endblock title %}
 
 {% block content %}
+
 <body style="background-color: transparent; align-items: center;
 margin: auto;"></body>
 <h1 style="text-align: center; align-content: center;"><strong> Welcome to Your Greenhouse</strong></h1>
@@ -12,13 +14,25 @@ margin: auto;"></body>
 <div class="container" id="show_list">
     <h1>Your Seedlings</h1>
 
-{% for seedling in seedling_list %}
-<ul>
-    <li><strong>{{ seedling.token_value }}</strong></li>
-</ul>
-<br>
-{% endfor %}
+    <button type="submit" name="seedDelete" id="seedDelete" class="btn btn-light">Delete</button>
+    <button type="submit" name="seedDownload" id="seedDownload" class="btn btn-light">Download</button>
+    {% for seedling in seedling_list %}
+    <ul>
+        <li><strong>{{ seedling.token_value }}</strong></li>
+        <div class="form-check form-check-reverse" style="display:flex; width:18rem; justify-content:space-evenly; margin-left:35rem; margin-top:-2rem;">
+            <label class="checkbox-inline">
+                <input class="form-check-input" type="checkbox" value="{{seedling.id}}" id="seedDelete"
+                    name="seedDelete">
+            </label>
+            <label class="checkbox-inline">
+                <input class="form-check-input" type="checkbox" value="{{seedling.id}}" id="seedDownload"
+                    name="seedDownload">
+                </label>
+            </div>
+        </ul>
     
+    {% endfor %}
+
 </div>
 
 
