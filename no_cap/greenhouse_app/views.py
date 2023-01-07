@@ -12,12 +12,6 @@ def login_home(request):
     if request.method == "POST" and request.user.is_authenticated:
         getHash = request.POST['writeToDom']
         print(getHash)
-        # current_user = None
-        # if request.user != None:
-        #     current_user = request.user
-        # else:
-        #     current_user = ''
-        # # user = User.objects.get(username=request.POST["username"])
         new_token_form = Token_storage(token_value=getHash, token_user=request.user)
         new_token_form.save()
         return render(request, "greenhouse_app/login_home.html", {'new_token_form': new_token_form})
