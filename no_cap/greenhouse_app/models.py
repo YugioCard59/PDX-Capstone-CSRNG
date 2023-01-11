@@ -12,6 +12,7 @@ class Token_user(models.Model):
 class Token_storage(models.Model):
     token_value = models.CharField(max_length=200)
     token_user =  models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    delete = models.BooleanField('Deleted', default=False)
 
     def __str__(self):
         return self.token_value

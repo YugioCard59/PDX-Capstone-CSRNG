@@ -29,8 +29,42 @@ def show_seedling(request):
         os.remove(path)
 
     seedling_list = Token_storage.objects.all()
+    content = {
+        'seedling_list': seedling_list
+    }
     
+    # return render(request, "greenhouse_app/show_seedling.html", {'seedling_list': seedling_list})
+    return render(request, "greenhouse_app/show_seedling.html", content)
+
+def delete_seedling(request):
+    seedling_list = Token_storage.objects.all()
+    if request.method == 'POST':
+        # seedling_id = Token_storage.objects.get(pk=int(seedling_id))
+        # delete_list = request.POST.getlist('seedDelete')
+        delete_list = request.POST.getlist("seedDelete")
+        print(delete_list)
+        for seedling_id in delete_list:
+            Token_storage.objects.get(pk=int(seedling_id))
+            print(seedling_id)
+        #     seedling_id.delete(delete=True)
+        #     print(seedling_id.delete(delete=True))
+        #     return(seedling_list)
+        #     seedling_id_id = Token_storage.objects.get(pk=(int(seedling_id)))
+        #     # if seedling_id:
+        #     # Token_storage.objects.get(pk=(int(seedling_id))).delete(delete=True)
+        #     print(seedling_id_id)
+    # delete_token_value = Token_storage.objects.get(pk=delete_id)
+    # content = {}
+    # if request.method == "POST":
+    #     # create a list or dict and iterate through? through html?
+    #     print(content)
+    #     print(delete_token_value.id)
+    #     print(delete_token_value)
+    #     delete_token_value.delete()
+    # delete_token_value.delete
+    # return render(request, "greenhouse_app/show_seedling.html")
     return render(request, "greenhouse_app/show_seedling.html", {'seedling_list': seedling_list})
+
 
 def signup(request):
     if request.method == "POST":

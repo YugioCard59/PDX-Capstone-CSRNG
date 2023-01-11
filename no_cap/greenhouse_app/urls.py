@@ -10,4 +10,5 @@ urlpatterns = [
     path('signin/', views.signin, name="signin"),
     path('signout/', views.signout, name="signout"),
     path('show_seedling/', views.show_seedling, name="show_seedling"),
+    path('delete_seedling/', views.delete_seedling, name="delete_seedling"),
 ]
