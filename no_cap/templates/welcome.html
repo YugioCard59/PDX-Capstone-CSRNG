@@ -11,19 +11,19 @@ Welcome & Data Upload/Retrieval Page
 {% block content %}
 
 <div class="container">
-<h1><strong> Welcome:  Plant Your Seed Here!</strong></h1>
-<h3>Rules:  
+<h1><strong> Welcome To Seedling: <br/>  Plant Your Seed Here!</strong></h1>
+<h3 style="flex-direction: row;">Rules:  
     <br>Max file size 2KB 
     <br>Only .csv files</h3>
 </div>
-<aside style="width:40%;">
-    <h4 style="color:rgb(226, 216, 216)">About This Seedling App</h4>
-    <p style="color:rgb(226, 216, 216)">This app aims to create a cryptographically secure random number that is then SHA-256 encoded.
+<div style="margin-top: 0rem;">
+    <h4 style="color:rgb(226, 216, 216); margin-top: 8rem;">About This Seedling App</h4>
+    <p style="color:rgb(226, 216, 216); margin-top: 0rem; width:40%">This app aims to create a cryptographically secure random number that is then SHA-256 encoded.
     This random token which is called a "seedling" in this app is generated from true random data provided by the user via uploading a .csv file containing
      numerical data from physical measurements.  A great example and use of this app would be applying a collection of measurements, such as measuring the efficiency of  </p>
-</aside>
 
-<div class="import_files">
+</div>
+<div class="import_files" style="margin-top: -18rem;">
 <form action="" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 <!-- note {{form}} form defined in views.py as dict key -->
