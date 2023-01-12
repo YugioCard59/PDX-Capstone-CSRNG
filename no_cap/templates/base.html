@@ -29,8 +29,10 @@
             <li><a class="dropdown-item" href="{% url 'greenhouse_app:signup' %}"><strong>Sign Up</strong></a></li>
             <li><a class="dropdown-item" href="{% url 'greenhouse_app:signin' %}"><strong>Sign In</strong></a></li>
             <li><a class="dropdown-item" href="{% url 'greenhouse_app:signout' %}"><strong>Sign Out</strong></a></li>
+            {% if user.is_authenticated %}
             <li><a class="dropdown-item" href="{% url 'greenhouse_app:show_seedling' %}"><strong>Greenhouse</strong></a>
             </li>
+            {% endif %}
         </ul>
     </div>
 
