@@ -54,30 +54,37 @@ def show_seedling(request):
     # isFile = os.path.isfile(path)
     # if isFile:
     if request.method == "GET" and request.user.is_authenticated:
-        getHash = request.session['getHash']
+        try:
+            getHash = request.session['getHash']
         # context = {
         #     'getHash': request.POST.get('getHash')
         # }
         
         # getHash = request.POST['writeToDom']
-        print(f"from show_seedling view writetodom: {getHash}")
-        new_token_form = Token_storage(token_value=getHash, token_user=request.user)
+            print(f"from show_seedling view writetodom: {getHash}")
+            new_token_form = Token_storage(token_value=getHash, token_user=request.user)
         # print(f"This is token form: {new_token_form}")
-        new_token_form.save()
+            new_token_form.save()
 
-    dir = './media/random_app/'
-    for f in os.listdir(dir):
-        os.remove(os.path.join(dir, f))
-    path = "./static/cleanedList.json"
-    isFile = os.path.isfile(path)
-    print(f"from show seedling view does json exist: {isFile}")
-    if isFile:
-        os.remove(path)
+            dir = './media/random_app/'
+            for f in os.listdir(dir):
+                os.remove(os.path.join(dir, f))
+            path = "./static/cleanedList.json"
+            isFile = os.path.isfile(path)
+            print(f"from show seedling view does json exist: {isFile}")
+            if isFile:
+                os.remove(path)
+
+            seedling_list = Token_storage.objects.filter(token_user=request.user)
+            content = {
+                'seedling_list': seedling_list
+            }
         # return redirect('random_app:handle_csv')
-    seedling_list = Token_storage.objects.filter(token_user=request.user)
-    content = {
-        'seedling_list': seedling_list
-    }
+        except:
+            seedling_list = Token_storage.objects.filter(token_user=request.user)
+            content = {
+                'seedling_list': seedling_list
+            }
     return render(request, "greenhouse_app/show_seedling.html", content)
 
 
