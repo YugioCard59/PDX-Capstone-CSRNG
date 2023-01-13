@@ -30,12 +30,11 @@ margin: auto;"></body>
         <tbody>
             {% for seedling in seedling_list %}
             <tr>
-                <td>{{ seedling }}</td>
+                <td class="seedlings">{{ seedling }}</td>
                 <td>
                     <div class="form-check">
                     
                     <input class="form-check-input" type="checkbox" value={{seedling.id}} name="seedDelete">
-                    <!-- for seedling_id in delete_list if seedling_id post true -->
                 
                 </div>
                 
@@ -52,7 +51,8 @@ margin: auto;"></body>
         let csv_data = [];
         let rows = document.getElementsByTagName('tr')
         for (let i = 0; i < rows.length; i++) {
-            let cols = rows[i].querySelectorAll('tbody:nth-child(2), thead:nth-child(2)')
+            // let cols = rows[i].querySelectorAll('td')
+            let cols = rows[i].getElementsByClassName('seedlings',)
             let csv_row = []
             for (let j = 0; j < cols.length; j++) {
                 csv_row.push(cols[j].innerHTML)

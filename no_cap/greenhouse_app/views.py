@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from .models import Token_storage
 import os
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 
 def login_home(request):
     # dir = './media/random_app/'
@@ -44,8 +44,12 @@ def login_home(request):
     
     return render(request, "greenhouse_app/login_home.html")
 
-# @login_required
+@login_required
 def show_seedling(request):
+    path = "./static/cleanedList.json"
+    isFile = os.path.isfile(path)
+    if isFile:
+        return redirect('random_app:handle_csv')
     # if request.method == "POST" and request.user.is_authenticated:
     #     getHash = request.POST['writeToDom']
     #     print(getHash)
