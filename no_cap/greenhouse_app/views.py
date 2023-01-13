@@ -69,6 +69,7 @@ def show_seedling(request):
     }
     return render(request, "greenhouse_app/show_seedling.html", content)
 
+
 def delete_seedling(request):
     seedling_list = Token_storage.objects.all()
     if request.method == 'POST':
@@ -79,7 +80,9 @@ def delete_seedling(request):
             print(seedling_id)
             print(Token_storage.objects.get(pk=int(seedling_id)))
             Token_storage.objects.get(pk=int(seedling_id)).delete()
-    return render(request, "greenhouse_app/show_seedling.html", {'seedling_list': seedling_list})
+        # return render(request, "greenhouse_app/show_seedling.html", {'seedling_list': seedling_list})
+        
+    return redirect("greenhouse_app:show_seedling")
 
 
 def signup(request):
@@ -119,7 +122,8 @@ def signin(request):
         if user is not None:
             login(request, user)
             username = user.username
-            return render(request, "greenhouse_app/login_home.html", {'username': username})
+            return redirect('random_app:handle_csv')
+            # return render(request, "greenhouse_app/login_home.html", {'username': username})
 
         else:
             messages.error(request, "Bad Credentials")
