@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import CsvForm
 from json import dumps
+import os
 
 # BELOW: this fnx will open and read file line by line where
 # UploadedFile.chunks() is safest read for memory
@@ -15,6 +16,17 @@ def upload_file(request):
             return render(request, 'token_generation.html')
     else:
         form = CsvForm()
+        
+        if request.method == 'GET' and '/login_home/' not in request.path_info:
+            dir = './media/random_app/'
+        for f in os.listdir(dir):
+            os.remove(os.path.join(dir, f))
+
+        path = "./static/cleanedList.json"
+        isFile = os.path.isfile(path)
+        print(isFile)
+        if isFile:
+            os.remove(path)  
         # below dict[name used in template: value] is what is being passed to html
     return render(request, 'welcome.html', {'form': form})
 

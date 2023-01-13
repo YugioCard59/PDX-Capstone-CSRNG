@@ -7,28 +7,63 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from .models import Token_storage
 import os
+# from django.contrib.auth.decorators import login_required
 
 def login_home(request):
+    # dir = './media/random_app/'
+    # for f in os.listdir(dir):
+    #     os.remove(os.path.join(dir, f))
+
+    # path = "./static/cleanedList.json"
+    # isFile = os.path.isfile(path)
+    # print(isFile)
+    # if isFile:
+    #     os.remove(path)
+
     if request.method == "POST" and request.user.is_authenticated:
         getHash = request.POST['writeToDom']
         print(getHash)
         new_token_form = Token_storage(token_value=getHash, token_user=request.user)
+        print(f"This is token form: {new_token_form}")
+        #request.user.new_token_form.save()
         new_token_form.save()
-        return render(request, "greenhouse_app/login_home.html", {'new_token_form': new_token_form})
+
+        dir = './media/random_app/'
+        for f in os.listdir(dir):
+            os.remove(os.path.join(dir, f))
+
+        path = "./static/cleanedList.json"
+        isFile = os.path.isfile(path)
+        print(isFile)
+        if isFile:
+            os.remove(path)
+        # return render(request, "greenhouse_app/login_home.html", {'new_token_form': new_token_form})
+        # return render(request, "greenhouse_app/show_seedling.html", {'new_token_form': new_token_form})
+        return redirect("greenhouse_app:show_seedling")
+
+    
     return render(request, "greenhouse_app/login_home.html")
 
+# @login_required
 def show_seedling(request):
-    dir = './media/random_app/'
-    for f in os.listdir(dir):
-        os.remove(os.path.join(dir, f))
+    # if request.method == "POST" and request.user.is_authenticated:
+    #     getHash = request.POST['writeToDom']
+    #     print(getHash)
+    #     new_token_form = Token_storage(token_value=getHash, token_user=request.user)
+    #     new_token_form.save()
+    #     # return render(request, "greenhouse_app/login_home.html", {'new_token_form': new_token_form})
+    # dir = './media/random_app/'
+    # for f in os.listdir(dir):
+    #     os.remove(os.path.join(dir, f))
 
-    path = "./static/cleanedList.json"
-    isFile = os.path.isfile(path)
-    print(isFile)
-    if isFile:
-        os.remove(path)
+    # path = "./static/cleanedList.json"
+    # isFile = os.path.isfile(path)
+    # print(isFile)
+    # if isFile:
+    #     os.remove(path)
 
-    seedling_list = Token_storage.objects.all()
+    # seedling_list = Token_storage.objects.all()
+    seedling_list = Token_storage.objects.filter(token_user=request.user)
     content = {
         'seedling_list': seedling_list
     }
@@ -96,5 +131,5 @@ def signin(request):
 def signout(request):
     logout(request)
     messages.success(request, "Logged Out Successfully")
-    return redirect('greenhouse_app:login_home')
+    return redirect('random_app:upload_file')
     
