@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block title %}
 Signin
 {% endblock title %}
@@ -8,19 +8,24 @@ Signin
 
 
 <div class="container">
-<h1> Welcome to Sign In</h1>
+    <h1> Welcome to Sign In</h1>
 
-<form action="{% url 'greenhouse_app:signin' %}" method="POST">
-    {% csrf_token %}
-    <label for="">Username</label>
-    <input type="text" id="username" name="username" placeholder="Create username (Alphanumeric Only)" required>
-    <br>
-    <label for="">Password</label>
-    <input type="password" id="password" name="password" placeholder="Create username password" required>
-    <br>
-    <button type="submit">Sign In</button>
+    <form action="{% url 'greenhouse_app:signin' %}" method="POST">
+        {% csrf_token %}
+        <label for="">Username</label>
+        <input type="text" id="username" name="username" placeholder="Create username (Alphanumeric Only)" required>
+        <br>
+        <label for="">Password</label>
+        <input type="password" id="password" name="password" placeholder="Create username password" required>
+        <br>
+        <button type="submit">Sign In</button>
 
-</form>
+    </form>
+</div>
+<br/>
+<div class="container">
+    <p>Sign Up to create an Account!</p>
+    <button type="submit"> <a href="{% url 'greenhouse_app:signup' %}">SignUp</a></button>
 </div>
 
 {% endblock %}

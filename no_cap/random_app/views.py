@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import CsvForm
 from json import dumps
 import os
+from greenhouse_app.models import Token_storage
 
 # BELOW: this fnx will open and read file line by line where
 # UploadedFile.chunks() is safest read for memory
@@ -22,11 +23,11 @@ def upload_file(request):
         for f in os.listdir(dir):
             os.remove(os.path.join(dir, f))
 
-        path = "./static/cleanedList.json"
-        isFile = os.path.isfile(path)
-        print(isFile)
-        if isFile:
-            os.remove(path)  
+    path = "./static/cleanedList.json"
+    isFile = os.path.isfile(path)
+    print(f"from upload view does json exist: {isFile}")
+    if isFile:
+        os.remove(path)  
         # below dict[name used in template: value] is what is being passed to html
     return render(request, 'welcome.html', {'form': form})
 
@@ -78,7 +79,24 @@ def handle_csv(request):
     jsonFile = open("./static/cleanedList.json", "w")
     jsonFile.write(jsonCleanList)
     jsonFile.close()
-    print(jsonCleanList)
+    # print(jsonCleanList)
+
+    if request.method == "POST" and request.user.is_authenticated:
+        getHash = request.POST['writeToDom']
+        print(f"this is writetodom: {getHash}")
+        new_token_form = Token_storage(token_value=getHash, token_user=request.user)
+            # print(f"This is token form: {new_token_form}")
+        new_token_form.save()
+
+        dir = './media/random_app/'
+        for f in os.listdir(dir):
+            os.remove(os.path.join(dir, f))
+        path = "./static/cleanedList.json"
+        isFile = os.path.isfile(path)
+        print(f"json file exists? {isFile}")
+        if isFile:
+            os.remove(path)
+            return redirect('greenhouse_app:show_seedling')
 
     return render(request, 'token_generation.html')
 

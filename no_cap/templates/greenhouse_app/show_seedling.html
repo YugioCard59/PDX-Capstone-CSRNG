@@ -9,76 +9,77 @@ Show Seedling and Save to Greenhouse
 
 <body style="background-color: transparent; align-items: center;
 margin: auto;"></body>
-<h1 style="text-align: center; align-content: center;"><strong> Welcome {{request.user}} to Your Greenhouse</strong></h1>
+<h1 style="text-align: center; align-content: center;"><strong> Welcome {{request.user}} to Your Greenhouse</strong>
+</h1>
 
 
 <div class="container" id="show_list">
-    <!-- <h1>Your Seedlings</h1> -->
-    <br/>
+
+    <br />
     <form action="{% url 'greenhouse_app:delete_seedling' %}" method="POST">
         {% csrf_token %}
         <button class="btn btn-secondary" type="submit">Delete</button>
         <button class="btn btn-secondary" type="button" onclick="makeCsv()">Download All Seedlings</button>
-        <br/>
-    <table class="table table-striped table-hover table-bordered">
-        <thead>
-            <tr>
-                <th scope="col" id="csv-data">Your Seedlings</th>
-                <th scope="col">Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for seedling in seedling_list %}
-            <tr>
-                <td class="seedlings">{{ seedling }}</td>
-                <td>
-                    <div class="form-check">
-                    
-                    <input class="form-check-input" type="checkbox" value={{seedling.id}} name="seedDelete">
-                
-                </div>
-                
-                </td>
-            
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</form>
+        <br />
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" id="csv-data">Your Seedlings</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for seedling in seedling_list %}
+                <tr>
+                    <td class="seedlings">{{ seedling }}</td>
+                    <td>
+                        <div class="form-check">
 
-<script type="text/javascript">
-    function makeCsv(){
-        let csv_data = [];
-        let rows = document.getElementsByTagName('tr')
-        for (let i = 0; i < rows.length; i++) {
-            // let cols = rows[i].querySelectorAll('td')
-            let cols = rows[i].getElementsByClassName('seedlings',)
-            let csv_row = []
-            for (let j = 0; j < cols.length; j++) {
-                csv_row.push(cols[j].innerHTML)
-            } 
-            csv_data.push(csv_row.join(","))
+                            <input class="form-check-input" type="checkbox" value={{seedling.id}} name="seedDelete">
+
+                        </div>
+
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+
+    <script type="text/javascript">
+        function makeCsv() {
+            let csv_data = [];
+            let rows = document.getElementsByTagName('tr')
+            for (let i = 0; i < rows.length; i++) {
+                // let cols = rows[i].querySelectorAll('td')
+                let cols = rows[i].getElementsByClassName('seedlings',)
+                let csv_row = []
+                for (let j = 0; j < cols.length; j++) {
+                    csv_row.push(cols[j].innerHTML)
+                }
+                csv_data.push(csv_row.join(","))
+            }
+            csv_data = csv_data.join('\n')
+            console.log(csv_data)
+
+            downloadCsvFile(csv_data)
         }
-        csv_data = csv_data.join('\n')
-        console.log(csv_data)
-        
-        downloadCsvFile(csv_data)
-    }
 
-    function downloadCsvFile(csv_data) {
-        CsvFile = new Blob([csv_data], {
-            type: "text/csv"
-        });
-        let temp_dl = document.createElement('a')
-        temp_dl.download = "YourSeedlings.csv"
-        let url = window.URL.createObjectURL(CsvFile)
-        temp_dl.href = url
-        temp_dl.style.display = "none"
-        document.body.appendChild(temp_dl)
-        temp_dl.click()
-        document.body.removeChild(temp_dl)
-    }
+        function downloadCsvFile(csv_data) {
+            CsvFile = new Blob([csv_data], {
+                type: "text/csv"
+            });
+            let temp_dl = document.createElement('a')
+            temp_dl.download = "YourSeedlings.csv"
+            let url = window.URL.createObjectURL(CsvFile)
+            temp_dl.href = url
+            temp_dl.style.display = "none"
+            document.body.appendChild(temp_dl)
+            temp_dl.click()
+            document.body.removeChild(temp_dl)
+        }
 
-</script>
+    </script>
 
-{% endblock %}
+    {% endblock %}

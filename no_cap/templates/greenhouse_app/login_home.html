@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block title %}
 Login
 {% endblock title %}
@@ -8,25 +8,25 @@ Login
 <div class="alert alert={{ message.tags }} alert-dismissible fade show" role="alert">
     <strong>Message:</strong> {{ message }}
     <button type="button" class="close" data-dismiss="alert" aria-label="close">
-    <span aria-hidden="true">&times;</span>
-</button>
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
 {% endfor %}
 <div class="contianer">
-<h1> Welcome to Login Page</h1>
+    <h1> Welcome to Login Page</h1>
 
 
 
-{% if user.is_authenticated %}
-<h3>Howdy {{ username }}</h3>
-<h4>You have successfully logged in!</h4>
-<button type="submit"> <a href="{% url 'greenhouse_app:signout' %}">SignOut</a></button>
-<button id="hashFromCsv"><a href="{% url 'greenhouse_app:show_seedling' %}">Show Seedling</a></button>
-{% else %}
+    {% if user.is_authenticated %}
+    <h3>Howdy {{ username }}</h3>
+    <h4>You have successfully logged in!</h4>
+    <button type="submit"> <a href="{% url 'greenhouse_app:signout' %}">SignOut</a></button>
+    <button id="hashFromCsv"><a href="{% url 'greenhouse_app:show_seedling' %}">Show Seedling</a></button>
+    {% else %}
 
-<button type="submit" > <a href="{% url 'greenhouse_app:signup' %}">SignUp</a></button>
-<button type="submit"> <a href="{% url 'greenhouse_app:signin' %}">SignIn</a></button>
-{% endif %}
+    <button type="submit"> <a href="{% url 'greenhouse_app:signup' %}">SignUp</a></button>
+    <button type="submit"> <a href="{% url 'greenhouse_app:signin' %}">SignIn</a></button>
+    {% endif %}
 </div>
 
 <script>
