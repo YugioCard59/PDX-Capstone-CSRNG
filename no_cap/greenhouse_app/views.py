@@ -113,18 +113,25 @@ def signup(request):
 
 
 def signin(request):
-    if request.method == "POST":
+
+    if request.user.is_authenticated:
+        
+        logout(request)
+        messages.info(
+            request, "You are now logged out."
+        )
+        return redirect('greenhouse_app:login_home')
+        # WILL NOT LET ME USE NAVIGATION TO RETURN TO RANDOMAPP:UPLOAD
+
+
+    elif request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
-
         user = authenticate(username=username, password=password)
-
         if user is not None:
             login(request, user)
             username = user.username
-            return redirect('random_app:handle_csv')
-            # return render(request, "greenhouse_app/login_home.html", {'username': username})
-
+            return render(request, "greenhouse_app/login_home.html", {'username': username})
         else:
             messages.error(request, "Bad Credentials")
             return redirect('greenhouse_app:login_home')
@@ -136,4 +143,5 @@ def signout(request):
     logout(request)
     messages.success(request, "Logged Out Successfully")
     return redirect('random_app:upload_file')
+
     
