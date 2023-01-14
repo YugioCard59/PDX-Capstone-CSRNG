@@ -53,39 +53,45 @@ def show_seedling(request):
     # path = "./static/cleanedList.json"
     # isFile = os.path.isfile(path)
     # if isFile:
+    dir = './media/random_app/'
+    for f in os.listdir(dir):
+        os.remove(os.path.join(dir, f))
+    path = "./static/cleanedList.json"
+    isFile = os.path.isfile(path)
+    print(f"from show seedling view does json exist: {isFile}")
+    if isFile:
+        os.remove(path)
     if request.method == "GET" and request.user.is_authenticated:
-        try:
-            getHash = request.session['getHash']
+        # try:
+        seedling_list = Token_storage.objects.filter(token_user=request.user)
+        content = {
+            'seedling_list': seedling_list
+        }
+        getHash = request.session['getHash']
+        for element in seedling_list:
+        # for seedling in seedling_list:
+            if element.token_value == getHash:
+                # print(f"typeof hash: {type(getHash)} typeof seedling: {(element.token_value)}")
+                element.delete()
+                # return seedling_list
         # context = {
         #     'getHash': request.POST.get('getHash')
         # }
         
         # getHash = request.POST['writeToDom']
-            print(f"from show_seedling view writetodom: {getHash}")
-            new_token_form = Token_storage(token_value=getHash, token_user=request.user)
-        # print(f"This is token form: {new_token_form}")
-            new_token_form.save()
+                print(f"from show_seedling view writetodom: {getHash}")
+                new_token_form = Token_storage(token_value=getHash, token_user=request.user)
+    # print(f"This is token form: {new_token_form}")
+                new_token_form.save()
 
-            dir = './media/random_app/'
-            for f in os.listdir(dir):
-                os.remove(os.path.join(dir, f))
-            path = "./static/cleanedList.json"
-            isFile = os.path.isfile(path)
-            print(f"from show seedling view does json exist: {isFile}")
-            if isFile:
-                os.remove(path)
 
-            seedling_list = Token_storage.objects.filter(token_user=request.user)
-            content = {
-                'seedling_list': seedling_list
-            }
         # return redirect('random_app:handle_csv')
-        except:
-            seedling_list = Token_storage.objects.filter(token_user=request.user)
-            content = {
-                'seedling_list': seedling_list
-            }
-    return render(request, "greenhouse_app/show_seedling.html", content)
+        # except:
+        #     seedling_list = Token_storage.objects.filter(token_user=request.user)
+        #     content = {
+        #         'seedling_list': seedling_list
+        #     }
+        return render(request, "greenhouse_app/show_seedling.html", content)
 
 
 def delete_seedling(request):
@@ -97,8 +103,14 @@ def delete_seedling(request):
             print(seedling_id)
             print(Token_storage.objects.get(pk=int(seedling_id)))
             Token_storage.objects.get(pk=int(seedling_id)).delete()
+
+    seedling_list = Token_storage.objects.filter(token_user=request.user)
+    content = {
+        'seedling_list': seedling_list
+        }
         
-    return redirect("greenhouse_app:show_seedling")
+    return render(request, "greenhouse_app/show_seedling.html", content)
+    # return redirect("greenhouse_app:show_seedling")
 
 
 def signup(request):
