@@ -14,7 +14,6 @@ def login_home(request):
         getHash = request.POST['writeToDom']
         print(f"from login view writetodom: {getHash}")
         new_token_form = Token_storage(token_value=getHash, token_user=request.user)
-        # print(f"This is token form: {new_token_form}")
         new_token_form.save()
 
         dir = './media/random_app/'
@@ -131,8 +130,7 @@ def signin(request):
             request, "You are now logged out."
         )
         return redirect('greenhouse_app:login_home')
-        # WILL NOT LET ME USE NAVIGATION TO RETURN TO RANDOMAPP:UPLOAD
-
+    
     elif request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -144,7 +142,7 @@ def signin(request):
         else:
             messages.error(request, "Bad Credentials")
             return redirect('greenhouse_app:login_home')
-# MUST KEEP GREENHOUSE APP/ bc defined in urls
+            
     return render(request, "greenhouse_app/signin.html")
 
 def signout(request):
