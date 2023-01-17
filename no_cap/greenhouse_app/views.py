@@ -36,7 +36,6 @@ def login_home(request):
             os.remove(os.path.join(dir, f))
         path = "./static/cleanedList.json"
         isFile = os.path.isfile(path)
-        print(f"from login view does json exists: {isFile}")
         if isFile:
             os.remove(path)
         return render(request, "greenhouse_app/signin.html", {"getHash": getHash})
@@ -63,8 +62,6 @@ def show_seedling(request):
             for element in seedling_list:
                 if element.token_value == getHash:
                     element.delete()
-            
-                    print(f"from show_seedling view writetodom: {getHash}")
                     new_token_form = Token_storage(token_value=getHash, token_user=request.user)
                     new_token_form.save()
    
@@ -88,8 +85,6 @@ def delete_seedling(request):
         print(delete_list)
         for seedling_id in delete_list:
             Token_storage.objects.get(pk=int(seedling_id))
-            print(seedling_id)
-            print(Token_storage.objects.get(pk=int(seedling_id)))
             Token_storage.objects.get(pk=int(seedling_id)).delete()
   
     return render(request, "greenhouse_app/show_seedling.html", content)
@@ -142,7 +137,7 @@ def signin(request):
         else:
             messages.error(request, "Bad Credentials")
             return redirect('greenhouse_app:login_home')
-            
+
     return render(request, "greenhouse_app/signin.html")
 
 def signout(request):
