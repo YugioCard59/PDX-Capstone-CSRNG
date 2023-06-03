@@ -1,14 +1,26 @@
 from django.shortcuts import render, redirect
-from .forms import CsvForm
+from .forms import CsvForm, CsvFileForm
+from .models import Csv_data
 from json import dumps
 import os
 from greenhouse_app.models import Token_storage
 
 def upload_file(request):
     if request.method == 'POST':
-        form = CsvForm(request.POST, request.FILES)
+        files = request.FILES.getlist('file')
+        # form = CsvForm(request.POST, request.FILES)
+        ##form = CsvForm(request.POST, request.FILES.getlist('file_name'))
+        form = CsvFileForm(request.POST, files)
         if form.is_valid():
+            if files:
+                for f in files:
             # save() is attrib for modelForms won't work with just forms
+            # form.save()
+                
+                    new_file = Csv_data(
+                    file_name = f
+                    )
+                    new_file.save()
             form.save()
             return render(request, 'token_generation.html')
     else:

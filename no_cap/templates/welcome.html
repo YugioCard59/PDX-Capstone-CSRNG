@@ -41,7 +41,7 @@ Welcome & Data Upload/Retrieval Page
 <div style="margin-top: 0rem;">
     <h4 style="color:rgb(62, 60, 60); margin-top: 8rem;">About This Seedling App</h4>
     <p style="color:rgb(242, 233, 233); margin-top: 0rem; width:40%">This app aims to create a cryptographically secure
-        random number that is then SHA-256 encoded.
+        random number that is then SHA-256 encoded.  
         This random token is named "seedling" in this app and is generated from true random data provided by the
         user via uploading a .csv file containing
         numerical data from physical measurements of a physical system. A great example of use of this app would be to
@@ -50,14 +50,14 @@ Welcome & Data Upload/Retrieval Page
         energy source). Please refer
         to datasets from this <a style="color:rgb(245, 6, 189);"
             href="https://www.kaggle.com/datasets/sepandhaghighi/proton-exchange-membrane-pem-fuel-cell-dataset">kaggle</a>
-        website if you wish to practice retrieving random data.</p>
+        website if you wish to practice retrieving random data.  These Seedlings can be used as hashed cryptographic keys used in encryption, as passwords, as tokens, etc.</p>
         
     <p style="font-style: italic; color:whitesmoke; font-size: x-small; margin-left: 45rem;"><strong>Thank You for Visiting!</strong><br/><a style="color:rgb(245, 6, 189); margin-left: 1rem;" href="https://github.com/YugioCard59/PDX-Capstone-CSRNG">Visit My GitHub</a></p>
 
 
 </div>
-<div class="import_files" style="margin-top: -18rem;">
-    <form action="" method="POST" enctype="multipart/form-data">
+<div multiple class="import_files" style="margin-top: -18rem;">
+    <form action="" method="POST" multiple enctype="multipart/form-data">
         {% csrf_token %}
         <!-- note {{form}} form defined in views.py as dict key -->
         {{ form }}
